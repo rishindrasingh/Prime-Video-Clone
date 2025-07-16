@@ -29,7 +29,12 @@ pipeline {
         stage('NPM Install'){
             steps{
               script{
-	         	  sh "npm install"
+	         	 sh '''
+			  curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+			  apt-get install -y nodejs
+			  npm install
+			'''
+
                     }
                 } 
         }
