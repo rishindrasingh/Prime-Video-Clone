@@ -79,7 +79,7 @@ pipeline {
 					git config user.email "rishindrasingh23@gmail.com"
 					git config user.name "Rishindra Singh"
 					BUILD_NUMBER=${BUILD_NUMBER}
-					sed -i "s|image:.*poc-repo/primevideo-clone-app:.*|image: poc-repo/primevideo-clone-app:${BUILD_NUMBER}|g" primevideo-clone-app-manifest/deployment.yml
+					sed -i "s|\(image: .*/primevideo-clone-app:\)[^ ]*|\1${BUILD_NUMBER}|g" primevideo-clone-app-manifest/deployment.yml
 					git add primevideo-clone-app-manifest/deployment.yml
 					git commit -m "Update deployment image to version ${BUILD_NUMBER}"
 					git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:${BRANCH}
