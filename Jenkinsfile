@@ -34,15 +34,17 @@ pipeline {
                 } 
         }
 
-        stage('Static Code Analysis'){
-            steps{
-              script{
-	         	  withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
-				  sh 'mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL
-			  }'
-                    }
-                } 
-        }
+
+	stage('Static Code Analysis') {
+	  steps {
+	    script {
+	      withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
+	        sh "mvn sonar:sonar -Dsonar.login=${SONAR_AUTH_TOKEN} -Dsonar.host.url=${SONAR_URL}"
+	      }
+	    }
+	  }
+	}
+
 
 	stage('Artifact Registry Login'){
 		steps{
