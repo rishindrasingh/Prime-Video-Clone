@@ -8,14 +8,14 @@ pipeline {
     environment {
             PROJECT_ID = 'devopslearning-463313'
             BRANCH = 'gcp'
-	          REGION = 'us-central1'
-	          REPO_NAME = 'poc-repo'
-	          IMAGE_NAME = "prime-video-clone-app"
-	          DOCKER_IMAGE = "${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/${IMAGE_NAME}:${BUILD_NUMBER}"
+	    REGION = 'us-central1'
+	    REPO_NAME = 'poc-repo'
+	    IMAGE_NAME = "prime-video-clone-app"
+	    DOCKER_IMAGE = "${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/${IMAGE_NAME}:${BUILD_NUMBER}"
             GCP_CREDENTIALS = credentials('gcp-artifact-cred')
             GIT_REPO_NAME = "Prime-Video-Clone"
             GIT_USER_NAME = "rishindrasingh"
-	          SONAR_URL = "http://34.131.150.52:9000"
+	    SONAR_URL = "http://34.131.150.52:9000"
         
     }  
   stages {
@@ -25,7 +25,25 @@ pipeline {
         //git branch: 'rishindra', url: 'https://github.com/rishindrasingh/Jenkins-Zero-To-Hero.git'
       }
     }
-	
+
+        stage('NPM Install'){
+            steps{
+              script{
+	         	  sh "npm install"
+                    }
+                } 
+        }
+
+        stage('Static Code Analysis'){
+            steps{
+              script{
+	         	  withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
+				  sh 'mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL
+			  }'
+                    }
+                } 
+        }
+
 	stage('Artifact Registry Login'){
 		steps{
 		  script{
