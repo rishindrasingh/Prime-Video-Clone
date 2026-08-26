@@ -12,3 +12,5 @@ jobs:
         uses: ./.github/workflows/docker-scans.yml
     Sonar-Scan:
         uses: ./.github/workflows/sonar-scan.yml
+    Image-Push:
+        uses: ./.github/workflows/image-push.yml
