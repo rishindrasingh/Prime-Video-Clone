@@ -1,0 +1,25 @@
+name: CodeQuality Lint
+on:
+    workflow_call:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+    # Step 2: Install Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm' # Speeds up steps by caching node_modules
+
+      # Step 3: Install exact project dependencies
+      - name: Install Dependencies
+        run: npm ci
+
+      # Step 4: Execute the lint rule check
+      - name: Run JavaScript Linter
+        run: npm run lint
