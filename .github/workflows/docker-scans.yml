@@ -1,0 +1,23 @@
+name: Docker Scans
+on:
+    workflow_call:
+
+jobs:
+    docker-lint-and-scan:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout repository
+          uses: actions/checkout@v4
+
+        - name: Run Hadolint Dockerfile Linter
+          uses: hadolint/hadolint-action@v3.1.0
+          with:
+            dockerfile: Dockerfile
+
+        - name: Build Docker Image
+          run: docker build -t ${{ vars.DOCKERHUB_USERNAME }}/primevideoclone:latest .
+
+        - name: Run Trivy Docker Image Scan
+          uses: aquasecurity/trivy-action@v0.36.0
+          with:
+            image-ref: ${{ vars.DOCKERHUB_USERNAME }}/primevideoclone:latest
