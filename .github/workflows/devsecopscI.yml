@@ -6,7 +6,7 @@ on:
 jobs:
     Code-Quality:
         uses: ./.github/workflows/code-lint.yml
-    Secret-Scanning:
+    Secret-Scan:
         uses: ./.github/workflows/secret-scanning.yml
     Docker-Scans:
         uses: ./.github/workflows/docker-scans.yml
