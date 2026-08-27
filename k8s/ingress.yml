@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: PrimeVideoClone-ingress
+  namespace: PrimeVideoClone-namespace
+  labels:
+    app.kubernetes.io/name: PrimeVideoClone-ingress
+spec:
+  rules:
+  - host: app.rishindra.shop
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: PrimeVideoClone-service
+            port: 
+              number: 3000
