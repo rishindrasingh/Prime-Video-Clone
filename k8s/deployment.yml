@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: primeapp
-        image: primevideoclone:latest
+        image: rishindra2308/primevideoclone:latest
         resources:
           limits:
             memory: "128Mi"
