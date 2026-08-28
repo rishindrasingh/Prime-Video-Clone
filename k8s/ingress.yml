@@ -3,10 +3,20 @@ kind: Ingress
 metadata:
   name: primevideo-ingress
   namespace: primevideo
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP" # <--- Ensure this is HTTP, NOT HTTPS
   labels:
     app.kubernetes.io/name: primevideo-ingress
 spec:
   ingressClassName: nginx
+<<<<<<< HEAD
+=======
+  tls:
+  - hosts:
+    - app.rishindra.shop
+    secretName: app-tls-secret
+>>>>>>> a1494b1f9132a2455bf9dca736b18cd0b425e351
   rules:
   - host: app.rishindra.shop
     http:
